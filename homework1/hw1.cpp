@@ -39,6 +39,20 @@ double get_y(ifstream& input_file)
 }
 
 int main() {
+	const char filename[] = "in.txt";
+
+	FILE* f = fopen(filename, "rb");
+	if (!f)
+	{
+		
+		return 0;
+	}
+
+	char a;
+	size_t readed = fread(&a, 1, 1, f);
+
+	if (readed) {
+		
 	double a_x;
 	double a_y;
 	
@@ -75,7 +89,7 @@ int main() {
 		
 		if (help == 1) {
 			double dist_left = abs((-(a_x)*y + (a_y)*x)) / sqrt(pow(a_x, 2) + pow(a_y, 2));
-			if (dist_left > start_dist_left) {
+			if (dist_left >= start_dist_left) {
 				leftmost_x = x;
 				leftmost_y = y;
 				start_dist_left = dist_left;
@@ -84,7 +98,7 @@ int main() {
 		}
 		else if (help == 0) {
 			double dist_right = abs((-(a_x)*y + (a_y)*x)) / sqrt(pow(a_x, 2) + pow(a_y, 2));
-			if (dist_right > start_dist_right) {
+			if (dist_right >= start_dist_right) {
 				rightmost_x = x;
 				rightmost_y = y;
 				start_dist_right = dist_right;
@@ -95,4 +109,12 @@ int main() {
 	cout << "Leftmost: " << leftmost_x <<" " << leftmost_y << endl;
 
 	cout << "Rightmost: " << rightmost_x <<" " << rightmost_y << endl;
+	}
+	else {
+	cout << "Leftmost: " << 0 << " " << 0 << endl;
+	
+	cout << "Rightmost: " <<0 << " " << 0 << endl;
+	return 0;
+	}
+	
 }
