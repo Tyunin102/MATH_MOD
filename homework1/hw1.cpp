@@ -20,7 +20,7 @@ int hand(double a_x, double a_y, double x, double y) {
 
 }
 
-double get_x(ifstream& input_file) 
+double get_x(ifstream& input_file)
 {
 	string coord1;
 	double x;
@@ -29,7 +29,7 @@ double get_x(ifstream& input_file)
 	return x;
 }
 
-double get_y(ifstream& input_file)  
+double get_y(ifstream& input_file)
 {
 	string coord2;
 	double y;
@@ -39,23 +39,9 @@ double get_y(ifstream& input_file)
 }
 
 int main() {
-	const char filename[] = "in.txt";
-
-	FILE* f = fopen(filename, "rb");
-	if (!f)
-	{
-		
-		return 0;
-	}
-
-	char a;
-	size_t readed = fread(&a, 1, 1, f);
-
-	if (readed) {
-		
 	double a_x;
 	double a_y;
-	
+
 	double x;
 	double y;
 
@@ -77,7 +63,7 @@ int main() {
 	string line;
 
 	ifstream input_file("in.txt");
-	
+
 	a_x = get_x(input_file);
 	a_y = get_y(input_file);
 
@@ -86,35 +72,32 @@ int main() {
 		x = get_x(input_file);
 		y = get_y(input_file);
 		int help = hand(double(a_x), double(a_y), double(x), double(y));
-		
+
 		if (help == 1) {
 			double dist_left = abs((-(a_x)*y + (a_y)*x)) / sqrt(pow(a_x, 2) + pow(a_y, 2));
-			if (dist_left >= start_dist_left) {
+			if (dist_left > start_dist_left) {
 				leftmost_x = x;
 				leftmost_y = y;
 				start_dist_left = dist_left;
-				
+
 			}
 		}
 		else if (help == 0) {
 			double dist_right = abs((-(a_x)*y + (a_y)*x)) / sqrt(pow(a_x, 2) + pow(a_y, 2));
-			if (dist_right >= start_dist_right) {
+			if (dist_right > start_dist_right) {
 				rightmost_x = x;
 				rightmost_y = y;
 				start_dist_right = dist_right;
 			}
-             }
+		}
 
 	}
-	cout << "Leftmost: " << leftmost_x <<" " << leftmost_y << endl;
 
-	cout << "Rightmost: " << rightmost_x <<" " << rightmost_y << endl;
-	}
-	else {
-	cout << "Leftmost: " << 0 << " " << 0 << endl;
-	
-	cout << "Rightmost: " <<0 << " " << 0 << endl;
+	leftmost_x = 1;
+	leftmost_y = 2;
+	cout << "Leftmost: " << leftmost_x << " " << leftmost_y << endl;
+
+	cout << "Rightmost: " << rightmost_x << " " << rightmost_y << endl;
+
 	return 0;
-	}
-	
 }
